@@ -81,7 +81,7 @@
     // Create Button and add event listener
     const initButtons = () => {
         let btnMarkup1 = '<div class="btn-group" style="margin-left: 5px; margin-right: 5px;">';
-        btnMarkup1 += '<a href="#" class="btn btn-success btn-sm alert_notify_alliance2" title="Alarmieren, im Verband freigeben und Nachricht in Verbands-Chat">';
+        btnMarkup1 += '<a href="#" class="btn btn-sm alert_notify_alliance2" style="color:#ffffff; background-color:#ff0000; background:#e08484" title="Alarmieren, im Verband freigeben und Nachricht in Verbands-Chat">';
         btnMarkup1 += '<img class="icon icons8-Phone-Filled" src="/images/icons8-phone_filled.svg" width="18" height="18">';
         btnMarkup1 += '<img class="icon icons8-Share" src="/images/icons8-share.svg" width="20" height="20">';
         btnMarkup1 += '<span class="glyphicon glyphicon-bullhorn" style="font-size: 13px;"></span>';
