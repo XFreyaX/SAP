@@ -56,26 +56,27 @@
     const enableKeyboard = true; // Set to 'false', to disable keyboard shortcuts.
     const shortcutKeys = [17, 89]; // 17 = ctrl, 68 = d
     const defaultPostToChat = true; // Set to 'false', to disable default post in alliance chat.
-    const messages = ['ESZ: %AKTDATE%',
-                      'ESZ: %AKTDATE% - Offen bis %MY_CUSTOM_TIME%. Sonst alles gemäß Regeln !!!',
-                      '[EVENT] ESZ: %AKTDATE% - Hat offen zu bleiben bis %MY_CUSTOM_TIME2% !!!',
-                      '+++ Gesponsorte GSL Nr.  --- kein ELW vor %MY_CUSTOM_TIME4% !!!',
-                      'ESZ: %AKTDATE% - %ADDRESS% - %FRE%',
-                      '%ADDRESS% - %FRE0%',
-                      'ESZ: %AKTDATE% - %ADDRESS% - %FZ1% und alles gemäß Regeln !!!', // Default
-                      'ESZ: %AKTDATE% - %ADDRESS% - %FZ1% !!! Letztes Fahrzeug nicht vor %MY_CUSTOM_TIME4% losschicken !!!',
-                      'ESZ: %AKTDATE% - kein ELW vor %MY_CUSTOM_TIME4%',
-                      'RD für %PATIENTS_LEFT% Patienten in %ADDRESS% benötigt.',
-                      'ESZ: %AKTDATE% - Weitere Kräfte in %ADDRESS% benötigt. Alles gemäß Regeln !!!',
-                      'ESZ: %AKTDATE% - Weitere Kräfte in %ADDRESS% benötigt. RD NUR durch mich - alles gemäß Regeln !!!',
-                      'ESZ: %AKTDATE% - Weitere Kräfte in %ADDRESS% benötigt. RD frei - alles gemäß Regeln !!!',
-                      'ESZ: %AKTDATE% - Offen bis %MY_CUSTOM_TIME%. RD NUR durch mich - alles gemäß Regeln !!!',
-                      'ESZ: %AKTDATE% - Unterstützung in %ADDRESS% benötigt. Offen bis %MY_CUSTOM_TIME%.',
+    const messages = ['%ESZ%',
+                      '%ESZ% - Offen bis %MY_CUSTOM_TIME%. Sonst alles gemäß Regeln !!!',
+                      '[EVENT] %ESZ% - Hat offen zu bleiben bis %MY_CUSTOM_TIME2% !!!',
+                      '%ESZ% - %ADDRESS% - %FRE%',
+                      '%ESZ% - %ADDRESS% - %FZ1% und alles gemäß Regeln !!!', // Default
+                      '%ESZ% - %ADDRESS% - %FZ1% !!! Letztes Fahrzeug nicht vor %MY_CUSTOM_TIME4% losschicken !!!',
+                      '%ESZ% - kein ELW vor %MY_CUSTOM_TIME4%',
+                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. Alles gemäß Regeln !!!',
+                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. RD NUR durch mich - alles gemäß Regeln !!!',
+                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. RD frei - alles gemäß Regeln !!!',
+                      '%ESZ% - Offen bis %MY_CUSTOM_TIME%. RD NUR durch mich - alles gemäß Regeln !!!',
+                      '%ESZ% - Unterstützung in %ADDRESS% benötigt. Offen bis %MY_CUSTOM_TIME%.',
+                      '%ESZ% - EILT !!! Weitere Kräfte in %ADDRESS% benötigt.',
                       // '%REQUIRED_VEHICLES% in %ADDRESS% noch benötigt',
+                      'RD für %PATIENTS_LEFT% Patienten in %ADDRESS% benötigt.',
                       'EILT !!! RTH in %ADDRESS% benötigt.',
                       'EILT !!! Hummel in %ADDRESS% benötigt.',
-                      'ESZ: %AKTDATE% - EILT !!! Weitere Kräfte in %ADDRESS% benötigt.'];
+                      '%ADDRESS% - %FRE0%',
+                      '+++ Gesponsorte GSL Nr.  --- kein ELW vor %MY_CUSTOM_TIME4% !!!',
                       // 'EILT !!! %REQUIRED_VEHICLES% in %ADDRESS% noch benötigt'];
+                      ];
 
     // Create Button and add event listener
     const initButtons = () => {
@@ -90,7 +91,7 @@
 
         let optionsBtnMarkup = '<a href="#" id="openAllianceShareOptions2" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
         optionsBtnMarkup += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-        optionsBtnMarkup += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2"><input type="text" id="allianceShareText2" value="' + messages[6] + '">';
+        optionsBtnMarkup += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2"><input type="text" id="allianceShareText2" value="' + messages[4] + '">';
         optionsBtnMarkup += '<label style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
         optionsBtnMarkup += '<div style="text-align: left;"><ul>';
         $.each(messages, (index, msg) => {
@@ -191,11 +192,15 @@
 
     const transformMessages = () => {
         try {
+
+            const vers = '(SAP 4.0.1)';
+
             // Prepare values for %ADDRESS% and %PATIENTS_LEFT%
             // Possible inputs 'xy street, 1234 city', '1234 city', '123 city | 2' (where 2 is number of patients)
             let addressAndPatrientRow = $('.mission_header_info >> small').first().text().trim().split(',');
             addressAndPatrientRow = addressAndPatrientRow[addressAndPatrientRow.length-1].split('|');
-            const address = addressAndPatrientRow[0];
+            const adr = addressAndPatrientRow[0];
+            let address = adr.slice(0, 6);
             const patientsLeft = addressAndPatrientRow.length === 2 ? addressAndPatrientRow[1] : 0;
 
             const aDate = new Date();
@@ -221,13 +226,13 @@
             }
 
             for(let i = 0; i<messages.length; i++){
-                messages[i] = messages[i].replace('%ADDRESS%', address);
+                messages[i] = messages[i].replace('%ADDRESS%', 'PLZ: ' + address);
                 messages[i] = messages[i].replace('%PATIENTS_LEFT%', patientsLeft);
                 messages[i] = messages[i].replace('%REQUIRED_VEHICLES%', requiredVehicles);
-
+                messages[i] = messages[i].replace('%ESZ%', vers + ' ESZ: ' + AD);
                 messages[i] = messages[i].replace('%EIL%', 'EILT !!!');
                 messages[i] = messages[i].replace('%FRE%', 'Frei zum Mitverdienen gemäß Regeln !!!');
-                messages[i] = messages[i].replace('%FRE0%', '🚨 Credits 🚒 - ⚠️🚫🚫 NO MTW before all required vehicles are on scene 🚫🚫⚠️');
+                messages[i] = messages[i].replace('%FRE0%', vers + '🚨 Credits 🚒 - ⚠️🚫🚫 NO non-required vehicles before all required vehicles are on scene 🚫🚫⚠️');
 //                messages[i] = messages[i].replace('%FZ1%', 'Jeder nur 1 Fahrzeug');
                 messages[i] = messages[i].replace('%FZ1%', 'Denkt an Eure Mitspieler');
                 messages[i] = messages[i].replace('%AKTDATE%', AD);
