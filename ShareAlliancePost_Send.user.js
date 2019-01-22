@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.0.3
+// @version      4.0.4
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -205,7 +205,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(SAP 4.0.3)';
+            const vers = '(SAP_S 4.0.4)';
 
             // Prepare values for %ADDRESS% and %PATIENTS_LEFT%
             // Possible inputs 'xy street, 1234 city', '1234 city', '123 city | 2' (where 2 is number of patients)
