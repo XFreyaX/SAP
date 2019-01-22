@@ -192,7 +192,7 @@
     const transformMessages = () => {
         try {
             
-            const vers = '(SAP_S 4.0.4)';
+            const vers = '(SAP_NS 4.0.2)';
 
             // Prepare values for %ADDRESS% and %PATIENTS_LEFT%
             // Possible inputs 'xy street, 1234 city', '1234 city', '123 city | 2' (where 2 is number of patients)
