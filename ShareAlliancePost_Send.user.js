@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.0.1
+// @version      4.0.2
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -9,7 +9,21 @@
 (() => {
     'use strict';
 
-    function leapYear(year){
+    function NotHappyDay (){
+        let HD = new Date();
+        let HDD = HD.getDay();
+        let HDH = HD.getHours();
+        if ((HDD == 0) && ((HDH >= 15) && (HDH <= 20))){
+            $('.alert_notify_alliance2').hide();
+            $('#openAllianceShareOptions2').hide();
+       }
+        if ((HDD == 3) && ((HDH >= 18) && (HDH <= 22))){
+            $('.alert_notify_alliance2').hide();
+            $('#openAllianceShareOptions2').hide();
+        }
+    }
+
+    function leapYear (year){
         return (year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0);
     }
 
@@ -114,13 +128,11 @@
             $('#allianceShareText2').val($(this).text());
         });
 
-
         if(jumpNext){
             $('.alert_notify_alliance2').append('<span style="margin-left: 5px;" class="glyphicon glyphicon-arrow-right"></span>');
         }
 
         $('.alert_notify_alliance2').click(processAllianceShare2);
-
     };
 
     // Add Keylisteners
@@ -247,5 +259,6 @@
 
     transformMessages();
     initButtons();
+    NotHappyDay();
     initKeys();
 })();
