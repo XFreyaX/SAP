@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_NonSend
 // @namespace    Leitstellenspiel
-// @version      4.0.1
+// @version      4.0.2
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -191,6 +191,9 @@
 
     const transformMessages = () => {
         try {
+            
+            const vers = '(SAP_S 4.0.4)';
+
             // Prepare values for %ADDRESS% and %PATIENTS_LEFT%
             // Possible inputs 'xy street, 1234 city', '1234 city', '123 city | 2' (where 2 is number of patients)
             let addressAndPatrientRow = $('.mission_header_info >> small').first().text().trim().split(',');
@@ -228,7 +231,7 @@
                 messages[i] = messages[i].replace('%ESZ%', vers + ' ESZ: ' + AD);
                 messages[i] = messages[i].replace('%EIL%', 'EILT !!!');
                 messages[i] = messages[i].replace('%FRE%', 'Frei zum Mitverdienen gemäß Regeln !!!');
-                messages[i] = messages[i].replace('%FRE0%', vers + '🚨 Credits 🚒 - ⚠️🚫🚫 NO non-required vehicles before all required vehicles are on scene 🚫🚫⚠️');
+                messages[i] = messages[i].replace('%FRE0%', vers + ' 🚨 Credits 🚒 - ⚠️🚫🚫 NO non-required vehicles before all required vehicles are on scene 🚫🚫⚠️');
 //                messages[i] = messages[i].replace('%FZ1%', 'Jeder nur 1 Fahrzeug');
                 messages[i] = messages[i].replace('%FZ1%', 'Denkt an Eure Mitspieler');
                 messages[i] = messages[i].replace('%AKTDATE%', AD);
