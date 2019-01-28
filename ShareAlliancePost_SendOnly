@@ -114,26 +114,28 @@
         optionsBtnMarkup += '</ul></div>';
         optionsBtnMarkup += '</div>';
 
-        $('.alert_notify_alliance').parent().append(btnMarkup1);
 
-        $('.alert_notify_alliance2').first().parent().prepend(optionsBtnMarkup);
+        $('.alert_next_alliance').parent().append(btnMarkup1);
 
-        $('#openAllianceShareOptions2').click(() => {
-            $('#allianceShareOptions2').show();
-            $('#openAllianceShareOptions2').hide();
+        $('.alert_notify_alliance').first().parent().prepend(optionsBtnMarkup);
+
+        $('#openAllianceShareOptions').click(() => {
+            $('#allianceShareOptions').show();
+            $('#openAllianceShareOptions').hide();
         });
 
 
-        $('.customAllianceShareText2').click(function() {
-            $('#allianceShareText2').val($(this).text());
+        $('.customAllianceShareText').click(function() {
+            $('#allianceShareText').val($(this).text());
         });
+
 
         if(jumpNext){
-            $('.alert_notify_alliance2').append('<span style="margin-left: 5px;" class="glyphicon glyphicon-arrow-right"></span>');
+            $('.alert_notify_alliance').append('<span style="margin-left: 5px;" class="glyphicon glyphicon-arrow-right"></span>');
         }
 
-        $('.alert_notify_alliance2').click(processAllianceShare2);
-    };
+        $('.alert_notify_alliance').click(processAllianceShare);
+};
 
     // Add Keylisteners
     const initKeys = () => {
