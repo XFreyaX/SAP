@@ -117,7 +117,7 @@
 
         $('.alert_next_alliance').parent().append(btnMarkup1);
 
-        $('.alert_notify_alliance').first().parent().prepend(optionsBtnMarkup);
+        $('.alert_notify_alliance2').first().parent().prepend(optionsBtnMarkup);
 
         $('#openAllianceShareOptions').click(() => {
             $('#allianceShareOptions').show();
@@ -131,7 +131,7 @@
 
 
         if(jumpNext){
-            $('.alert_notify_alliance').append('<span style="margin-left: 5px;" class="glyphicon glyphicon-arrow-right"></span>');
+            $('.alert_notify_alliance2').append('<span style="margin-left: 5px;" class="glyphicon glyphicon-arrow-right"></span>');
         }
 
         $('.alert_notify_alliance').click(processAllianceShare);
