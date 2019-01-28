@@ -119,14 +119,14 @@
 
         $('.alert_notify_alliance2').first().parent().prepend(optionsBtnMarkup);
 
-        $('#openAllianceShareOptions').click(() => {
-            $('#allianceShareOptions').show();
-            $('#openAllianceShareOptions').hide();
+        $('#openAllianceShareOptions2').click(() => {
+            $('#allianceShareOptions2').show();
+            $('#openAllianceShareOptions2').hide();
         });
 
 
-        $('.customAllianceShareText').click(function() {
-            $('#allianceShareText').val($(this).text());
+        $('.customAllianceShareText2').click(function() {
+            $('#allianceShareText2').val($(this).text());
         });
 
 
@@ -134,7 +134,7 @@
             $('.alert_notify_alliance2').append('<span style="margin-left: 5px;" class="glyphicon glyphicon-arrow-right"></span>');
         }
 
-        $('.alert_notify_alliance').click(processAllianceShare);
+        $('.alert_notify_alliance').click(processAllianceShare2);
 };
 
     // Add Keylisteners
