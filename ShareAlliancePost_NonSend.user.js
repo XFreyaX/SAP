@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_NonSend
 // @namespace    Leitstellenspiel
-// @version      4.0.2
+// @version      4.0.3
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -9,7 +9,7 @@
 (() => {
     'use strict';
 
-    function leapYear(year){
+    function leapYear (year){
         return (year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0);
     }
 
@@ -33,9 +33,9 @@
 
         let DOs = vDateD + ueTH;
         let ueTD = DOs >= DoMA ? 1 : 0;
-        DOs -= ueTH ? DoMA : 0;
+        DOs -= ueTD ? DoMA : 0;
         let vD = '';
-        vD += vDateD < 10 ? '0' + vDateD : '' + vDateD;
+        vD += DOs < 10 ? '0' + DOs : '' + DOs;
 
         let MOs = vDateM + ueTD;
         let ueTM = MOs >= 12 ? 1 : 0;
@@ -192,7 +192,7 @@
     const transformMessages = () => {
         try {
             
-            const vers = '(SAP_NS 4.0.2)';
+            const vers = '(SAP_NS 4.0.3)';
 
             // Prepare values for %ADDRESS% and %PATIENTS_LEFT%
             // Possible inputs 'xy street, 1234 city', '1234 city', '123 city | 2' (where 2 is number of patients)
