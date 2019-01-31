@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.0.5
+// @version      4.0.6
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -46,14 +46,14 @@
         vHo += HoOs < 10 ? '0' + HoOs : '' + HoOs;
 
         let DOs = vDateD + ueTH;
-        let ueTD = DOs >= DoMA ? 1 : 0;
-        DOs -= ueTD ? DoMA : 0;
+        let ueTD = (DOs > DoMA) ? 1 : 0;
+        DOs = (DOs > DoMA) ? 1 : DOs;
         let vD = '';
         vD += DOs < 10 ? '0' + DOs : '' + DOs;
 
         let MOs = vDateM + ueTD;
-        let ueTM = MOs >= 12 ? 1 : 0;
-        MOs -= ueTM ? 12 : 0;
+        let ueTM = (MOs > 12) ? 1 : 0;
+        MOs -= (MOs > 12) ? 12 : 0;
         let vM = '';
         vM += vDateM < 10 ? '0' + vDateM : '' + vDateM;
 
@@ -205,7 +205,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(SAP_S 4.0.5)';
+            const vers = '(SAP_S 4.0.6)';
 
             // Prepare values for %ADDRESS% and %PATIENTS_LEFT%
             // Possible inputs 'xy street, 1234 city', '1234 city', '123 city | 2' (where 2 is number of patients)
