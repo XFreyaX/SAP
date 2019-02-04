@@ -66,7 +66,7 @@
         return vD;
     }
 
-    const jumpNext = false; // Set to 'true', to jump to next mission after submitting an alert.
+    const jumpNext = true; // Set to 'true', to jump to next mission after submitting an alert.
     const enableKeyboard = true; // Set to 'false', to disable keyboard shortcuts.
     const shortcutKeys = [17, 89]; // 17 = ctrl, 68 = d
     const defaultPostToChat = true; // Set to 'false', to disable default post in alliance chat.
