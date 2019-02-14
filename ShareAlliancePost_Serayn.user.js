@@ -1,27 +1,13 @@
 // ==UserScript==
-// @name         ShareAlliancePost_Send
+// @name         ShareAlliancePost_Serayn
 // @namespace    Leitstellenspiel
-// @version      4.0.6
+// @version      4.0.4
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
 
 (() => {
     'use strict';
-
-    function NotHappyDay (){
-        let HD = new Date();
-        let HDD = HD.getDay();
-        let HDH = HD.getHours();
-        if ((HDD == 0) && ((HDH >= 15) && (HDH <= 20))){
-            $('.alert_notify_alliance2').hide();
-            $('#openAllianceShareOptions2').hide();
-       }
-        if ((HDD == 3) && ((HDH >= 18) && (HDH <= 22))){
-            $('.alert_notify_alliance2').hide();
-            $('#openAllianceShareOptions2').hide();
-        }
-    }
 
     function leapYear (year){
         return (year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0);
@@ -70,69 +56,55 @@
     const enableKeyboard = true; // Set to 'false', to disable keyboard shortcuts.
     const shortcutKeys = [17, 89]; // 17 = ctrl, 68 = d
     const defaultPostToChat = true; // Set to 'false', to disable default post in alliance chat.
-    const messages = ['%ESZ%',
-                      '%ESZ% - Offen bis %MY_CUSTOM_TIME%. Sonst alles gemäß Regeln !!!',
-                      '[EVENT] %ESZ% - Hat offen zu bleiben bis %MY_CUSTOM_TIME2% !!!',
-                      '%ESZ% - %ADDRESS% - %FRE%',
-                      '%ESZ% - %ADDRESS% - %FZ1% und alles gemäß Regeln !!!', // Default
-                      '%ESZ% - %ADDRESS% - %FZ1% !!! Letztes Fahrzeug nicht vor %MY_CUSTOM_TIME4% losschicken !!!',
-                      '%ESZ% - kein ELW vor %MY_CUSTOM_TIME4%',
-                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. Alles gemäß Regeln !!!',
-                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. RD NUR durch mich - alles gemäß Regeln !!!',
-                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. RD frei - alles gemäß Regeln !!!',
-                      '%ESZ% - Offen bis %MY_CUSTOM_TIME%. RD NUR durch mich - alles gemäß Regeln !!!',
-                      '%ESZ% - Unterstützung in %ADDRESS% benötigt. Offen bis %MY_CUSTOM_TIME%.',
-                      '%ESZ% - EILT !!! Weitere Kräfte in %ADDRESS% benötigt.',
-                      // '%REQUIRED_VEHICLES% in %ADDRESS% noch benötigt',
-                      'RD für %PATIENTS_LEFT% Patienten in %ADDRESS% benötigt.',
-                      'EILT !!! RTH in %ADDRESS% benötigt.',
-                      'EILT !!! Hummel in %ADDRESS% benötigt.',
-                      '%ADDRESS% - %FRE0%',
-                      '+++ Gesponsorte GSL Nr.  --- kein ELW vor %MY_CUSTOM_TIME4% !!!',
-                      // 'EILT !!! %REQUIRED_VEHICLES% in %ADDRESS% noch benötigt'];
-                      ];
+    const messages = ['Frei zum Mitverdienen', // First entry is default
+                    'Der Florian Leverkusen Erbittet Rettungsdienst für %PATIENTS_LEFT% Verletzte',
+                    'Weitere Kräfte benötigt',
+                    'Der Florian Leverkusen benötigt weitere Einheiten zum Einsatz in %ADDRESS%',
+                    'Der Florian Leverkusen gibt Anfahrt zum Einsatz in %ADDRESS% frei. Es gibt %PATIENTS_LEFT% verletzte.',
+                    '%REQUIRED_VEHICLES%'];
 
     // Create Button and add event listener
     const initButtons = () => {
         let btnMarkup1 = '<div class="btn-group" style="margin-left: 5px; margin-right: 5px;">';
-        btnMarkup1 += '<a href="#" class="btn btn-sm alert_notify_alliance2" style="color:#ffffff; background-color:#ff0000; background:#e08484" title="Alarmieren, im Verband freigeben und Nachricht in Verbands-Chat">';
+        btnMarkup1 += '<a href="#" class="btn btn-success btn-sm alert_notify_alliance" title="Alarmieren, im Verband freigeben und Nachricht in Verbands-Chat">';
         btnMarkup1 += '<img class="icon icons8-Phone-Filled" src="/images/icons8-phone_filled.svg" width="18" height="18">';
         btnMarkup1 += '<img class="icon icons8-Share" src="/images/icons8-share.svg" width="20" height="20">';
-        btnMarkup1 += '<span class="glyphicon glyphicon-bullhorn" style="font-size: 13px;"></span>';
         btnMarkup1 += '<span class="glyphicon glyphicon-bullhorn" style="font-size: 13px;"></span>';
         btnMarkup1 += '</a></div>';
         let btnMarkup2 = '<div class="btn-group" style="margin-left: 5px; margin-right: 5px;">';
 
-        let optionsBtnMarkup = '<a href="#" id="openAllianceShareOptions2" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
+        let optionsBtnMarkup = '<a href="#" id="openAllianceShareOptions" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
         optionsBtnMarkup += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-        optionsBtnMarkup += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2"><input type="text" id="allianceShareText2" value="' + messages[4] + '">';
+        optionsBtnMarkup += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions"><input type="text" id="allianceShareText" value="' + messages[4] + '">';
         optionsBtnMarkup += '<label style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
         optionsBtnMarkup += '<div style="text-align: left;"><ul>';
         $.each(messages, (index, msg) => {
-            optionsBtnMarkup += '<li class="customAllianceShareText2">' + msg + '</li>';
+            optionsBtnMarkup += '<li class="customAllianceShareText">' + msg + '</li>';
         });
         optionsBtnMarkup += '</ul></div>';
         optionsBtnMarkup += '</div>';
 
-        $('.alert_notify_alliance').parent().append(btnMarkup1);
+        $('.alert_next_alliance').parent().append(btnMarkup1);
 
-        $('.alert_notify_alliance2').first().parent().prepend(optionsBtnMarkup);
+        $('.alert_notify_alliance').first().parent().prepend(optionsBtnMarkup);
 
-        $('#openAllianceShareOptions2').click(() => {
-            $('#allianceShareOptions2').show();
-            $('#openAllianceShareOptions2').hide();
+        $('#openAllianceShareOptions').click(() => {
+            $('#allianceShareOptions').show();
+            $('#openAllianceShareOptions').hide();
         });
 
 
-        $('.customAllianceShareText2').click(function() {
-            $('#allianceShareText2').val($(this).text());
+        $('.customAllianceShareText').click(function() {
+            $('#allianceShareText').val($(this).text());
         });
+
 
         if(jumpNext){
-            $('.alert_notify_alliance2').append('<span style="margin-left: 5px;" class="glyphicon glyphicon-arrow-right"></span>');
+            $('.alert_notify_alliance').append('<span style="margin-left: 5px;" class="glyphicon glyphicon-arrow-right"></span>');
         }
 
-        $('.alert_notify_alliance2').click(processAllianceShare2);
+        $('.alert_notify_alliance').click(processAllianceShare);
+
     };
 
     // Add Keylisteners
@@ -160,11 +132,11 @@
                             // If the extra button has the (value) number 1-9,
                             // and the message array as a corresponding number of messages, select it
                             if(extraKey > 0 && extraKey <=10 && extraKey <= messages.length){
-                                $('#allianceShareText2').val(messages[extraKey - 1]);
+                                $('#allianceShareText').val(messages[extraKey - 1]);
                             }
                         }
 
-                        processAllianceShare2();
+                        processAllianceShare();
 
                     }
                 }
@@ -176,22 +148,22 @@
         }
     };
 
-    const processAllianceShare2 = () => {
+    const processAllianceShare = () => {
 
-        $('#allianceShareOptions2').hide();
-        $('#openAllianceShareOptions2').show();
+        $('#allianceShareOptions').hide();
+        $('#openAllianceShareOptions').show();
 
         const sendToAlliance = $('#postToChat').is(':checked') ? 1 : 0;
         const missionShareLink = $('#mission_alliance_share_btn').attr('href');
         const missionId = missionShareLink.replace('/missions/','').replace('/alliance', '');
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
-        const message = $('#allianceShareText2').val();
+        const message = $('#allianceShareText').val();
 
-        $('.alert_notify_alliance2').html('Teilen..');
+        $('.alert_notify_alliance').html('Teilen..');
         $.get('/missions/' + missionId + '/alliance' , () => {
-            $('.alert_notify_alliance2').html('Chatten..');
-            $.post( "/mission_replies", {authenticity_token: csrfToken, mission_reply: {alliance_chat: 1, content: message, mission_id: missionId}}, (data, status, xhr) => {
-                $('.alert_notify_alliance2').html('Alarmieren..');
+            $('.alert_notify_alliance').html('Chatten..');
+            $.post( "/mission_replies", {authenticity_token: csrfToken, mission_reply: {alliance_chat: sendToAlliance, content: message, mission_id: missionId}}, (data, status, xhr) => {
+                $('.alert_notify_alliance').html('Alarmieren..');
                 if(jumpNext){
                     $('.alert_next').first().click();
                 } else {
@@ -204,8 +176,8 @@
 
     const transformMessages = () => {
         try {
-
-            const vers = '(SAP_S 4.0.6)';
+            
+            const vers = '(SAP_NS 4.0.4)';
 
             // Prepare values for %ADDRESS% and %PATIENTS_LEFT%
             // Possible inputs 'xy street, 1234 city', '1234 city', '123 city | 2' (where 2 is number of patients)
@@ -259,6 +231,5 @@
 
     transformMessages();
     initButtons();
-    NotHappyDay();
     initKeys();
 })();
