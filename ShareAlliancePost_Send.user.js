@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.1.0
+// @version      4.1.0a
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -208,7 +208,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(SAP_S 4.1.0)';
+            const vers = '(SAP_S 4.1.0a)';
 
             var creds, cstr;
 
