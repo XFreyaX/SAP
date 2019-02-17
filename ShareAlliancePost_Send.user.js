@@ -284,8 +284,6 @@
         }
     };
 
-    // creds = getCredits();
-    // cstr = '' + creds + ' Credits';
     transformMessages();
     initButtons();
     NotHappyDay();
