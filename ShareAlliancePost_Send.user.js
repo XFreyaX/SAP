@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.1.0a
+// @version      4.1.1a
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -15,11 +15,12 @@
         let HD = new Date();
         let HDD = HD.getDay();
         let HDH = HD.getHours();
-        if ((HDD == 0) && ((HDH >= 15) && (HDH <= 20))){
+        let HDM = HD.getMinutes();
+        if ((HDD == 0) && ((HDH >= 15) && ((HDH <= 19) || ((HDH == 20) && (HDM == 0))))) {
             $('.alert_notify_alliance2').hide();
             $('#openAllianceShareOptions2').hide();
        }
-        if ((HDD == 3) && ((HDH >= 18) && (HDH <= 22))){
+        if ((HDD == 3) && ((HDH >= 18) && ((HDH <= 21) || ((HDH == 22) && (HDM == 0))))) {
             $('.alert_notify_alliance2').hide();
             $('#openAllianceShareOptions2').hide();
         }
@@ -208,7 +209,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(SAP_S 4.1.0a)';
+            const vers = '(SAP_S 4.1.1a)';
 
             var creds, cstr;
 
