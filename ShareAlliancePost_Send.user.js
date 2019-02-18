@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.1.1a
+// @version      4.1.2
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -30,7 +30,7 @@
         return (year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0);
     }
 
-    function OffTime (ueT, Os){
+    function OffTime (ueT, Os, dY){
         var DoM = [31,26,31,30,31,30,31,31,30,31,30,31];
         let vT = ueT;
 
@@ -65,7 +65,12 @@
         let vMi = '';
         vMi += vDateMi < 10 ? '0' + vDateMi : '' + vDateMi;
 
-        vD += '.' + vM + '.' + vY + ' / ' + vHo + ':' + vMi +' Uhr';
+        if (dY) {
+            vD += '.' + vM + '.' + vY + ' / ' + vHo + ':' + vMi +' Uhr';
+        } else {
+            vD += '.' + vM + '. / ' + vHo + ':' + vMi +' Uhr';
+        }
+
         return vD;
     }
 
@@ -73,29 +78,28 @@
     const enableKeyboard = true; // Set to 'false', to disable keyboard shortcuts.
     const shortcutKeys = [17, 89]; // 17 = ctrl, 68 = d
     const defaultPostToChat = true; // Set to 'false', to disable default post in alliance chat.
-    const messages = ['%ESZ% - %CRE%',
+    const displayYear = false;
+    const messages = ['%ESZ% - %ADDRESS% - %CRE% - alles gemäß Regeln !!!',
                       '%ESZ% - Offen bis %MY_CUSTOM_TIME%. Sonst alles gemäß Regeln !!!',
                       '[EVENT] %ESZ% - Hat offen zu bleiben bis %MY_CUSTOM_TIME2% !!!',
                       '%ESZ% - %ADDRESS% - %FRE%',
-                      '%ESZ% - %ADDRESS% - %CRE% - %FZ1% und alles gemäß Regeln !!!', // Default
+                      '%ESZ% - %ADDRESS% - %CRE% - Regeln !!!', // Default
                       '%ESZ% - %ADDRESS% - %FZ1% !!! Letztes Fahrzeug nicht vor %MY_CUSTOM_TIME4% losschicken !!!',
                       '%ESZ% - kein ELW vor %MY_CUSTOM_TIME4%',
-                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. Alles gemäß Regeln !!!',
-                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. RD NUR durch mich - alles gemäß Regeln !!!',
-                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. RD frei - alles gemäß Regeln !!!',
-                      '%ESZ% - Offen bis %MY_CUSTOM_TIME%. RD NUR durch mich - alles gemäß Regeln !!!',
-                      '%ESZ% - Unterstützung in %ADDRESS% benötigt. Offen bis %MY_CUSTOM_TIME%.',
+                      '%ESZ% - %ADDRESS% - %CRE% - RD NUR durch mich - Regeln !!!',
+                      '%ESZ% - %ADDRESS% - %CRE% - RD frei - Regeln !!!',
+                      // '%ESZ% - Offen bis %MY_CUSTOM_TIME%. RD NUR durch mich - alles gemäß Regeln !!!',
+                      // '%ESZ% - Unterstützung in %ADDRESS% benötigt. Offen bis %MY_CUSTOM_TIME%.',
                       '%ESZ% - EILT !!! Weitere Kräfte in %ADDRESS% benötigt.',
                       'RD für %PATIENTS_LEFT% Patienten in %ADDRESS% benötigt.',
                       'EILT !!! RTH in %ADDRESS% benötigt.',
                       'EILT !!! Hummel in %ADDRESS% benötigt.',
                       '%ADDRESS% - %FRE0%',
-                      '+++ Gesponsorte GSL Nr.  --- kein ELW vor %MY_CUSTOM_TIME4% !!!',
+                      '+++ Gesponsorte GSL --- kein ELW 2 vor %MY_CUSTOM_TIME4% !!!',
                       // '%REQUIRED_VEHICLES% in %ADDRESS% noch benötigt',
                       // 'EILT !!! %REQUIRED_VEHICLES% in %ADDRESS% noch benötigt'];
-                      'TEST - bitte ignorieren !!! : %CRE%',
                       ];
-
+    
     // Create Button and add event listener
     const initButtons = () => {
         let btnMarkup1 = '<div class="btn-group" style="margin-left: 5px; margin-right: 5px;">';
@@ -209,7 +213,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(SAP_S 4.1.1a)';
+            const vers = '(4.1.2)';
 
             var creds, cstr;
 
@@ -231,7 +235,7 @@
                 creds = m_id2;
             }
 
-            cstr = '' + creds + ' Credits';
+            cstr = '' + creds + ' €';
 
             // Prepare values for %ADDRESS% and %PATIENTS_LEFT%
             // Possible inputs 'xy street, 1234 city', '1234 city', '123 city | 2' (where 2 is number of patients)
@@ -244,16 +248,16 @@
             const aDate = new Date();
 
             // Prepare values for %AKTDATE%
-            const AD = OffTime(aDate, 0);
+            const AD = OffTime(aDate, 0, displayYear);
 
             // Prepare values for %MY_CUSTOM_TIME%
-            const MCT = OffTime(aDate, 5);
+            const MCT = OffTime(aDate, 5, displayYear);
 
             // Prepare values for %MY_CUSTOM_TIME2%
-            const MCT2 = OffTime(aDate, 3);
+            const MCT2 = OffTime(aDate, 3, displayYear);
 
             // Prepare values for %MY_CUSTOM_TIME4%
-            const MCT4 = OffTime(aDate, 6);
+            const MCT4 = OffTime(aDate, 6, displayYear);
 
             // Prepare required Vehicles
             const alertText = $('.alert-danger');
