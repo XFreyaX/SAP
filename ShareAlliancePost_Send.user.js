@@ -213,7 +213,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.1.2)';
+            const vers = '(4.1.2a)';
 
             var creds, cstr;
 
