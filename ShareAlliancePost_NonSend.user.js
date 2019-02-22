@@ -58,27 +58,24 @@
     const enableKeyboard = true; // Set to 'false', to disable keyboard shortcuts.
     const shortcutKeys = [17, 89]; // 17 = ctrl, 68 = d
     const defaultPostToChat = false; // Set to 'false', to disable default post in alliance chat.
-    const messages = ['%ESZ% - %CRE%',
+    const messages = ['%ESZ% - %ADDRESS% - %CRE% - alles gemäß Regeln !!!',
                       '%ESZ% - Offen bis %MY_CUSTOM_TIME%. Sonst alles gemäß Regeln !!!',
                       '[EVENT] %ESZ% - Hat offen zu bleiben bis %MY_CUSTOM_TIME2% !!!',
                       '%ESZ% - %ADDRESS% - %FRE%',
-                      '%ESZ% - %ADDRESS% - %CRE% - %FZ1% und alles gemäß Regeln !!!', // Default
+                      '%ESZ% - %ADDRESS% - %CRE% - Regeln !!!', // Default
                       '%ESZ% - %ADDRESS% - %FZ1% !!! Letztes Fahrzeug nicht vor %MY_CUSTOM_TIME4% losschicken !!!',
                       '%ESZ% - kein ELW vor %MY_CUSTOM_TIME4%',
-                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. Alles gemäß Regeln !!!',
-                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. RD NUR durch mich - alles gemäß Regeln !!!',
-                      '%ESZ% - Weitere Kräfte in %ADDRESS% benötigt. RD frei - alles gemäß Regeln !!!',
-                      '%ESZ% - Offen bis %MY_CUSTOM_TIME%. RD NUR durch mich - alles gemäß Regeln !!!',
-                      '%ESZ% - Unterstützung in %ADDRESS% benötigt. Offen bis %MY_CUSTOM_TIME%.',
+                      '%ESZ% - %ADDRESS% - %CRE% - RD NUR durch mich - Regeln !!!',
+                      '%ESZ% - %ADDRESS% - %CRE% - RD frei - Regeln !!!',
+                      // '%ESZ% - Offen bis %MY_CUSTOM_TIME%. RD NUR durch mich - alles gemäß Regeln !!!',
+                      // '%ESZ% - Unterstützung in %ADDRESS% benötigt. Offen bis %MY_CUSTOM_TIME%.',
                       '%ESZ% - EILT !!! Weitere Kräfte in %ADDRESS% benötigt.',
                       'RD für %PATIENTS_LEFT% Patienten in %ADDRESS% benötigt.',
                       'EILT !!! RTH in %ADDRESS% benötigt.',
                       'EILT !!! Hummel in %ADDRESS% benötigt.',
                       '%ADDRESS% - %FRE0%',
-                      '+++ Gesponsorte GSL Nr.  --- kein ELW vor %MY_CUSTOM_TIME4% !!!',
                       // '%REQUIRED_VEHICLES% in %ADDRESS% noch benötigt',
                       // 'EILT !!! %REQUIRED_VEHICLES% in %ADDRESS% noch benötigt'];
-                      'TEST - bitte ignorieren !!! : %CRE%',
                       ];
 
     // Create Button and add event listener
@@ -195,7 +192,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(SAP_NS 4.1.0a)';
+            const vers = '(SAP_NS 4.1.2a)';
 
             var creds, cstr;
 
