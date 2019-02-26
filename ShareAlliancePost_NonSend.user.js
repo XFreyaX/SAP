@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_NonSend
 // @namespace    Leitstellenspiel
-// @version      4.1.3a
+// @version      4.1.4a
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -91,7 +91,7 @@
         let optionsBtnMarkup = '<a href="#" id="openAllianceShareOptions" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
         optionsBtnMarkup += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
         optionsBtnMarkup += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions"><input type="text" id="allianceShareText" value="' + messages[4] + '">';
-        // optionsBtnMarkup += '<label style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
+        optionsBtnMarkup += '<label id="dptc" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
         optionsBtnMarkup += '<div style="text-align: left;"><ul>';
         $.each(messages, (index, msg) => {
             optionsBtnMarkup += '<li class="customAllianceShareText">' + msg + '</li>';
@@ -102,6 +102,7 @@
         $('.alert_next_alliance').parent().append(btnMarkup1);
 
         $('.alert_notify_alliance').first().parent().prepend(optionsBtnMarkup);
+        $('#dptc').css('display', 'none');
 
         $('#openAllianceShareOptions').click(() => {
             $('#allianceShareOptions').show();
@@ -194,7 +195,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.1.3a NonSend)';
+            const vers = '(4.1.4a NonSend)';
 
             var creds, cstr;
 
