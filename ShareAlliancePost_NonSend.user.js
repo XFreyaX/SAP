@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_NonSend
 // @namespace    Leitstellenspiel
-// @version      4.1.4a
+// @version      4.1.5
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -195,7 +195,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.1.4a NonSend)';
+            const vers = '(4.1.5 NonSend)';
 
             var creds, cstr;
 
