@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.1.2a
+// @version      4.1.3a
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -185,6 +185,8 @@
     };
 
     const processAllianceShare2 = () => {
+        $('.alert_notify_alliance').hide();
+        $('#openAllianceShareOptions').hide();
 
         $('#allianceShareOptions2').hide();
         $('#openAllianceShareOptions2').show();
@@ -213,7 +215,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.1.2a)';
+            const vers = '(4.1.3a)';
 
             var creds, cstr;
 
