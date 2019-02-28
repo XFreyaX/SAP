@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.1.6
+// @version      4.2.0
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -27,11 +27,11 @@
     }
 
     function leapYear (year){
-        return (year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0);
+        return ((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0));
     }
 
     function OffTime (ueT, Os, dY){
-        var DoM = [31,26,31,30,31,30,31,31,30,31,30,31];
+        var DoM = [31,28,31,30,31,30,31,31,30,31,30,31];
         let vT = ueT;
 
         let vDateD = vT.getDate();
@@ -216,7 +216,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.1.5)';
+            const vers = '(4.2.0)';
 
             var creds, cstr;
 
