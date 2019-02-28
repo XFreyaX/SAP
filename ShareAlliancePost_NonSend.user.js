@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_NonSend
 // @namespace    Leitstellenspiel
-// @version      4.1.5
+// @version      4.2.0
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // ==/UserScript==
@@ -12,11 +12,11 @@
     var creds, cstr;
 
     function leapYear (year){
-        return (year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0);
+        return ((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0));
     }
 
     function OffTime (ueT, Os){
-        var DoM = [31,26,31,30,31,30,31,31,30,31,30,31];
+        var DoM = [31,28,31,30,31,30,31,31,30,31,30,31];
         let vT = ueT;
 
         let vDateD = vT.getDate();
@@ -195,7 +195,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.1.5 NonSend)';
+            const vers = '(4.2.0 NonSend)';
 
             var creds, cstr;
 
@@ -219,7 +219,6 @@
             }
 
             cstr = '' + creds + ' Credits';
-
 
             // Prepare values for %ADDRESS% and %PATIENTS_LEFT%
             // Possible inputs 'xy street, 1234 city', '1234 city', '123 city | 2' (where 2 is number of patients)
