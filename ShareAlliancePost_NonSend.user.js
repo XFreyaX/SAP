@@ -1,9 +1,12 @@
 // ==UserScript==
 // @name         ShareAlliancePost_NonSend
 // @namespace    Leitstellenspiel
-// @version      4.2.0
+// @version      4.2.2
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_deleteValue
 // ==/UserScript==
 
 (() => {
@@ -58,7 +61,9 @@
     const enableKeyboard = true; // Set to 'false', to disable keyboard shortcuts.
     const shortcutKeys = [17, 89]; // 17 = ctrl, 68 = d
     const defaultPostToChat = false; // Set to 'false', to disable default post in alliance chat.
-    const messages = ['%ESZ% - %ADDRESS% - %CRE% - alles gemäß Regeln !!!',
+	const useMessageStorage = true;
+    var Messages = [];
+    const defaultMessages = ['%ESZ% - %ADDRESS% - %CRE% - alles gemäß Regeln !!!',
                       '%ESZ% - Offen bis %MY_CUSTOM_TIME%. Sonst alles gemäß Regeln !!!',
                       '[EVENT] %ESZ% - Hat offen zu bleiben bis %MY_CUSTOM_TIME2% !!!',
                       '%ESZ% - %ADDRESS% - %FRE%',
@@ -78,6 +83,8 @@
                       // 'EILT !!! %REQUIRED_VEHICLES% in %ADDRESS% noch benötigt'];
                       ];
 
+    const addMessages = []; // Messages to add to storage
+
     // Create Button and add event listener
     const initButtons = () => {
         let btnMarkup1 = '<div class="btn-group" style="margin-left: 5px; margin-right: 5px;">';
@@ -90,10 +97,10 @@
 
         let optionsBtnMarkup = '<a href="#" id="openAllianceShareOptions" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
         optionsBtnMarkup += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-        optionsBtnMarkup += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions"><input type="text" id="allianceShareText" value="' + messages[4] + '">';
+        optionsBtnMarkup += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions"><input type="text" id="allianceShareText" value="' + Messages[4] + '">';
         optionsBtnMarkup += '<label id="dptc" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
         optionsBtnMarkup += '<div style="text-align: left;"><ul>';
-        $.each(messages, (index, msg) => {
+        $.each(Messages, (index, msg) => {
             optionsBtnMarkup += '<li class="customAllianceShareText">' + msg + '</li>';
         });
         optionsBtnMarkup += '</ul></div>';
@@ -147,8 +154,8 @@
                             extraKey = extraKey[extraKey.length - 1] - 48;
                             // If the extra button has the (value) number 1-9,
                             // and the message array as a corresponding number of messages, select it
-                            if(extraKey > 0 && extraKey <=10 && extraKey <= messages.length){
-                                $('#allianceShareText').val(messages[extraKey - 1]);
+                            if(extraKey > 0 && extraKey <=10 && extraKey <= Messages.length){
+                                $('#allianceShareText').val(Messages[extraKey - 1]);
                             }
                         }
 
@@ -195,7 +202,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.2.0 NonSend)';
+            const vers = '(4.2.2 NonSend)';
 
             var creds, cstr;
 
@@ -234,13 +241,13 @@
             const AD = OffTime(aDate, 0);
 
             // Prepare values for %MY_CUSTOM_TIME%
-            const MCT = OffTime(aDate, 5);
+            const MCT5 = OffTime(aDate, 5);
 
             // Prepare values for %MY_CUSTOM_TIME2%
-            const MCT2 = OffTime(aDate, 3);
+            const MCT3 = OffTime(aDate, 3);
 
             // Prepare values for %MY_CUSTOM_TIME4%
-            const MCT4 = OffTime(aDate, 6);
+            const MCT6 = OffTime(aDate, 6);
 
             // Prepare required Vehicles
             const alertText = $('.alert-danger');
@@ -250,27 +257,61 @@
                 requiredVehicles = alertText.text().trim().substr(requiredVehiclesIdentifier.length, alertText.text().trim().length-1);
             }
 
-            for(let i = 0; i<messages.length; i++){
-                messages[i] = messages[i].replace('%ADDRESS%', 'PLZ: ' + address);
-                messages[i] = messages[i].replace('%PATIENTS_LEFT%', patientsLeft);
-                messages[i] = messages[i].replace('%REQUIRED_VEHICLES%', requiredVehicles);
-                messages[i] = messages[i].replace('%ESZ%', vers + ' ESZ: ' + AD);
-                messages[i] = messages[i].replace('%EIL%', 'EILT !!!');
-                messages[i] = messages[i].replace('%CRE%', '' + cstr);
-                messages[i] = messages[i].replace('%FRE%', 'Frei zum Mitverdienen gemäß Regeln !!!');
-                messages[i] = messages[i].replace('%FRE0%', vers + ' 🚨 ' + cstr + ' 🚒 - ⚠️🚫🚫 NO non-required vehicles before all required vehicles are on scene 🚫🚫⚠️');
-//                messages[i] = messages[i].replace('%FZ1%', 'Jeder nur 1 Fahrzeug');
-                messages[i] = messages[i].replace('%FZ1%', 'Denkt an Eure Mitspieler');
-                messages[i] = messages[i].replace('%AKTDATE%', AD);
-                messages[i] = messages[i].replace('%MY_CUSTOM_TIME%', MCT);
-                messages[i] = messages[i].replace('%MY_CUSTOM_TIME2%', MCT2);
-                messages[i] = messages[i].replace('%MY_CUSTOM_TIME4%', MCT4);
+            for(let i = 0; i<Messages.length; i++){
+                Messages[i] = Messages[i].replace('%ADDRESS%', 'PLZ: ' + address);
+                Messages[i] = Messages[i].replace('%PATIENTS_LEFT%', patientsLeft);
+                Messages[i] = Messages[i].replace('%REQUIRED_VEHICLES%', requiredVehicles);
+                Messages[i] = Messages[i].replace('%ESZ%', vers + ' ESZ: ' + AD);
+                Messages[i] = Messages[i].replace('%EIL%', 'EILT !!!');
+                Messages[i] = Messages[i].replace('%CRE%', '' + cstr);
+                Messages[i] = Messages[i].replace('%FRE%', 'Frei zum Mitverdienen gemäß Regeln !!!');
+                Messages[i] = Messages[i].replace('%FRE0%', vers + ' 🚨 ' + cstr + ' 🚒 - ⚠️🚫🚫 NO non-required vehicles before all required vehicles are on scene 🚫🚫⚠️');
+                // Messages[i] = Messages[i].replace('%FZ1%', 'Jeder nur 1 Fahrzeug');
+                Messages[i] = Messages[i].replace('%FZ1%', 'Denkt an Eure Mitspieler');
+                Messages[i] = Messages[i].replace('%AKTDATE%', AD);
+                Messages[i] = Messages[i].replace('%MY_CUSTOM_TIME5%', MCT5);
+                Messages[i] = Messages[i].replace('%MY_CUSTOM_TIME3%', MCT3);
+                Messages[i] = Messages[i].replace('%MY_CUSTOM_TIME6%', MCT6);
             }
         } catch (e){
             console.log('Error transforming messages: ' + e);
         }
     };
 
+    const check_localStorage_messages = () => {
+		if (!useMessageStorage) {
+			Messages = defaultMessages;
+        } else {
+			if (GM_getValue('SAP_NS')) {
+				Messages = JSON.parse(GM_getValue('SAP_NS'));
+			} else {
+				Messages = defaultMessages;
+			}
+		}
+    };
+
+    const check_new_messages = () => {
+		var l;
+
+		if (addMessages.length == 0) {
+			if (useMessageStorage) {
+				GM_deleteValue('SAP_NS');
+				GM_setValue('SAP_NS', JSON.stringify(Messages));
+			}
+			return;
+		} else {
+			for (l = 0; l < addMessages.length; l++) {
+				Messages.push(addMessages[l]);
+			}
+			if (useMessageStorage) {
+				GM_deleteValue('SAP_NS');
+				GM_setValue('SAP_NS', JSON.stringify(Messages));
+			}
+		}
+    };
+
+    check_localStorage_messages();
+	check_new_messages();
     transformMessages();
     initButtons();
     initKeys();
