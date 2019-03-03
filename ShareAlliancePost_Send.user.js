@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.2.2
+// @version      4.2.2.1
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // @grant        GM_setValue
@@ -221,7 +221,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.2.2)';
+            const vers = '(4.2.2.1)';
 
             var creds, cstr;
 
