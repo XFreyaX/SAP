@@ -332,6 +332,7 @@
 
     check_localStorage_messages();
 	check_new_messages();
+	NotHappyDay();
     transformMessages();
     initButtons();
     initKeys();
