@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name		ShareAlliancePost_NonSend
-// @namespace	Leitstellenspiel
-// @version		4.3.0
-// @author		x_Freya_x, jalibu (Original), JuMaHo (Original)
-// @include		https://www.leitstellenspiel.de/missions/*
-// @grant		GM_setValue
-// @grant		GM_getValue
-// @grant		GM_deleteValue
+// @name			ShareAlliancePost_NonSend
+// @namespace		Leitstellenspiel
+// @version			4.3.0
+// @author			x_Freya_x, jalibu (Original), JuMaHo (Original)
+// @include			https://www.leitstellenspiel.de/missions/*
+// @grant			GM_setValue
+// @grant			GM_getValue
+// @grant			GM_deleteValue
 // ==/UserScript==
 
 (() => {
