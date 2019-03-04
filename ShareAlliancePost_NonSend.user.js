@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name		 ShareAlliancePost_NonSend
+// @name		ShareAlliancePost_NonSend
 // @namespace	Leitstellenspiel
-// @version	  4.3.0
-// @author	   x_Freya_x, jalibu (Original), JuMaHo (Original)
-// @include	  https://www.leitstellenspiel.de/missions/*
+// @version		4.3.0
+// @author		x_Freya_x, jalibu (Original), JuMaHo (Original)
+// @include		https://www.leitstellenspiel.de/missions/*
 // @grant		GM_setValue
 // @grant		GM_getValue
 // @grant		GM_deleteValue
@@ -14,11 +14,11 @@
 
 	var creds, cstr;
 
-	function leapYear (year){
+	function leapYear (year) {
 		return ((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0));
 	}
 
-	function OffTime (ueT, Os){
+	function OffTime (ueT, Os) {
 		var DoM = [31,28,31,30,31,30,31,31,30,31,30,31];
 		let vT = ueT;
 
