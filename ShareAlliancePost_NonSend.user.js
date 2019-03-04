@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_NonSend
 // @namespace    Leitstellenspiel
-// @version      4.2.2
+// @version      4.3.0
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // @grant        GM_setValue
@@ -63,25 +63,7 @@
     const defaultPostToChat = false; // Set to 'false', to disable default post in alliance chat.
 	const useMessageStorage = true;
     var Messages = [];
-    const defaultMessages = ['%ESZ% - %ADDRESS% - %CRE% - alles gemäß Regeln !!!',
-                      '%ESZ% - Offen bis %MY_CUSTOM_TIME%. Sonst alles gemäß Regeln !!!',
-                      '[EVENT] %ESZ% - Hat offen zu bleiben bis %MY_CUSTOM_TIME2% !!!',
-                      '%ESZ% - %ADDRESS% - %FRE%',
-                      '%ESZ% - %ADDRESS% - %CRE% - Regeln !!!', // Default
-                      '%ESZ% - %ADDRESS% - %FZ1% !!! Letztes Fahrzeug nicht vor %MY_CUSTOM_TIME4% losschicken !!!',
-                      '%ESZ% - kein ELW vor %MY_CUSTOM_TIME4%',
-                      '%ESZ% - %ADDRESS% - %CRE% - RD NUR durch mich - Regeln !!!',
-                      '%ESZ% - %ADDRESS% - %CRE% - RD frei - Regeln !!!',
-                      // '%ESZ% - Offen bis %MY_CUSTOM_TIME%. RD NUR durch mich - alles gemäß Regeln !!!',
-                      // '%ESZ% - Unterstützung in %ADDRESS% benötigt. Offen bis %MY_CUSTOM_TIME%.',
-                      '%ESZ% - EILT !!! Weitere Kräfte in %ADDRESS% benötigt.',
-                      'RD für %PATIENTS_LEFT% Patienten in %ADDRESS% benötigt.',
-                      'EILT !!! RTH in %ADDRESS% benötigt.',
-                      'EILT !!! Hummel in %ADDRESS% benötigt.',
-                      '%ADDRESS% - %FRE0%',
-                      // '%REQUIRED_VEHICLES% in %ADDRESS% noch benötigt',
-                      // 'EILT !!! %REQUIRED_VEHICLES% in %ADDRESS% noch benötigt'];
-                      ];
+    const defaultMessages = [];
 
     const addMessages = []; // Messages to add to storage
 
@@ -95,27 +77,44 @@
         btnMarkup1 += '</a></div>';
         let btnMarkup2 = '<div class="btn-group" style="margin-left: 5px; margin-right: 5px;">';
 
-        let optionsBtnMarkup = '<a href="#" id="openAllianceShareOptions" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
-        optionsBtnMarkup += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-        optionsBtnMarkup += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions"><input type="text" id="allianceShareText" value="' + Messages[4] + '">';
-        optionsBtnMarkup += '<label id="dptc" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
-        optionsBtnMarkup += '<div style="text-align: left;"><ul>';
+        let optionsBtnMarkup1 = '<a href="#" id="openAllianceShareOptions_br" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
+        optionsBtnMarkup1 += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
+        optionsBtnMarkup1 += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions_br"><input type="text" id="allianceShareText" value="' + Messages[4] + '" size="80">';
+        optionsBtnMarkup1 += '<label id="dptc_br" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
+        optionsBtnMarkup1 += '<div style="text-align: left;"><ul>';
         $.each(Messages, (index, msg) => {
-            optionsBtnMarkup += '<li class="customAllianceShareText">' + msg + '</li>';
+            optionsBtnMarkup1 += '<li class="customAllianceShareText">' + msg + '</li>';
         });
-        optionsBtnMarkup += '</ul></div>';
-        optionsBtnMarkup += '</div>';
+        optionsBtnMarkup1 += '</ul></div>';
+        optionsBtnMarkup1 += '</div>';
+
+        let optionsBtnMarkup2 = '<a href="#" id="openAllianceShareOptions_bl" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
+        optionsBtnMarkup2 += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
+        optionsBtnMarkup2 += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions_bl"><input type="text" id="allianceShareText" value="' + Messages[4] + '" size="80">';
+        optionsBtnMarkup2 += '<label id="dptc_bl" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
+        optionsBtnMarkup2 += '<div style="text-align: left;"><ul>';
+        $.each(Messages, (index, msg) => {
+            optionsBtnMarkup2 += '<li class="customAllianceShareText">' + msg + '</li>';
+        });
+        optionsBtnMarkup2 += '</ul></div>';
+        optionsBtnMarkup2 += '</div>';
 
         $('.alert_next_alliance').parent().append(btnMarkup1);
 
-        $('.alert_notify_alliance').first().parent().prepend(optionsBtnMarkup);
-        $('#dptc').css('display', 'none');
+        $('.alert_notify_alliance').first().parent().prepend(optionsBtnMarkup1);
+        $('.alert_notify_alliance').last().parent().prepend(optionsBtnMarkup2);
+        $('#dptc_bl').css('display', 'none');
+        $('#dptc_br').css('display', 'none');
 
-        $('#openAllianceShareOptions').click(() => {
-            $('#allianceShareOptions').show();
-            $('#openAllianceShareOptions').hide();
+        $('#openAllianceShareOptions_br').click(() => {
+            $('#allianceShareOptions_br').show();
+            $('#openAllianceShareOptions_bl').hide();
         });
 
+        $('#openAllianceShareOptions_bl').click(() => {
+            $('#allianceShareOptions_bl').show();
+            $('#openAllianceShareOptions_br').hide();
+        });
 
         $('.customAllianceShareText').click(function() {
             $('#allianceShareText').val($(this).text());
@@ -173,10 +172,12 @@
 
     const processAllianceShare = () => {
         $('.alert_notify_alliance2').hide();
-        $('#openAllianceShareOptions2').hide();
+        $('#openAllianceShareOptions2_bl').hide();
+        $('#openAllianceShareOptions2_br').hide();
 
         $('#allianceShareOptions').hide();
-        $('#openAllianceShareOptions').show();
+        $('#openAllianceShareOptions_bl').show();
+        $('#openAllianceShareOptions_br').show();
 
         const sendToAlliance = $('#postToChat').is(':checked') ? 1 : 0;
         const missionShareLink = $('#mission_alliance_share_btn').attr('href');
@@ -311,7 +312,7 @@
     };
 
     check_localStorage_messages();
-	check_new_messages();
+    check_new_messages();
     transformMessages();
     initButtons();
     initKeys();
