@@ -118,7 +118,7 @@
 
         let optionsBtnMarkup1 = '<a href="#" id="openAllianceShareOptions2_br" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
         optionsBtnMarkup1 += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-        optionsBtnMarkup1 += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2_br"><input type="text" id="allianceShareText2" value="' + Messages[0] + '">';
+        optionsBtnMarkup1 += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2_br"><input type="text" id="allianceShareText2" value="' + Messages[0] + '" size="80">';
         optionsBtnMarkup1 += '<label id="dptc2_br" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
         optionsBtnMarkup1 += '<div style="text-align: left;"><ul>';
         $.each(Messages, (index, msg) => {
@@ -129,7 +129,7 @@
 
         let optionsBtnMarkup2 = '<a href="#" id="openAllianceShareOptions2_bl" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
         optionsBtnMarkup2 += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-        optionsBtnMarkup2 += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2_bl"><input type="text" id="allianceShareText2" value="' + Messages[0] + '">';
+        optionsBtnMarkup2 += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2_bl"><input type="text" id="allianceShareText2" value="' + Messages[0] + '" size="80">';
         optionsBtnMarkup2 += '<label id="dptc2_bl" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
         optionsBtnMarkup2 += '<div style="text-align: left;"><ul>';
         $.each(Messages, (index, msg) => {
