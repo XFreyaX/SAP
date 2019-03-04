@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         ShareAlliancePost_Send
-// @namespace    Leitstellenspiel
-// @version      4.2.2.1
-// @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
-// @include      https://www.leitstellenspiel.de/missions/*
-// @grant        GM_setValue
-// @grant        GM_getValue
-// @grant        GM_deleteValue
+// @name         	ShareAlliancePost_Send
+// @namespace    	Leitstellenspiel
+// @version      	4.3.0
+// @author       	x_Freya_x, jalibu (Original), JuMaHo (Original)
+// @include      	https://www.leitstellenspiel.de/missions/*
+// @grant        	GM_setValue
+// @grant        	GM_getValue
+// @grant        	GM_deleteValue
 // ==/UserScript==
 
 (() => {
@@ -14,7 +14,7 @@
 
     var creds, cstr;
 
-    function NotHappyDay (){
+    function notHappyDay (){
         let HD = new Date();
         let HDD = HD.getDay();
         let HDH = HD.getHours();
@@ -108,34 +108,51 @@
 
     // Create Button and add event listener
     const initButtons = () => {
-        let btnMarkup1 = '<div class="btn-group" style="margin-left: 5px; margin-right: 5px;">';
-        btnMarkup1 += '<a href="#" class="btn btn-sm alert_notify_alliance2" style="color:#ffffff; background-color:#ff0000; background:#e08484" title="Alarmieren, im Verband freigeben und Nachricht in Verbands-Chat">';
-        btnMarkup1 += '<img class="icon icons8-Phone-Filled" src="/images/icons8-phone_filled.svg" width="18" height="18">';
-        btnMarkup1 += '<img class="icon icons8-Share" src="/images/icons8-share.svg" width="20" height="20">';
-        btnMarkup1 += '<span class="glyphicon glyphicon-bullhorn" style="font-size: 13px;"></span>';
-        btnMarkup1 += '<span class="glyphicon glyphicon-bullhorn" style="font-size: 13px;"></span>';
-        btnMarkup1 += '</a></div>';
-        let btnMarkup2 = '<div class="btn-group" style="margin-left: 5px; margin-right: 5px;">';
+        let btnMarkup = '<div class="btn-group" style="margin-left: 5px; margin-right: 5px;">';
+        btnMarkup += '<a href="#" class="btn btn-sm alert_notify_alliance2" style="color:#ffffff; background-color:#ff0000; background:#e08484" title="Alarmieren, im Verband freigeben und Nachricht in Verbands-Chat">';
+        btnMarkup += '<img class="icon icons8-Phone-Filled" src="/images/icons8-phone_filled.svg" width="18" height="18">';
+        btnMarkup += '<img class="icon icons8-Share" src="/images/icons8-share.svg" width="20" height="20">';
+        btnMarkup += '<span class="glyphicon glyphicon-bullhorn" style="font-size: 13px;"></span>';
+        btnMarkup += '<span class="glyphicon glyphicon-bullhorn" style="font-size: 13px;"></span>';
+        btnMarkup += '</a></div>';
 
-        let optionsBtnMarkup = '<a href="#" id="openAllianceShareOptions2" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
-        optionsBtnMarkup += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
-        optionsBtnMarkup += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2"><input type="text" id="allianceShareText2" value="' + Messages[0] + '">';
-        optionsBtnMarkup += '<label id="dptc2" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
-        optionsBtnMarkup += '<div style="text-align: left;"><ul>';
+        let optionsBtnMarkup1 = '<a href="#" id="openAllianceShareOptions2_br" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
+        optionsBtnMarkup1 += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
+        optionsBtnMarkup1 += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2_br"><input type="text" id="allianceShareText2" value="' + Messages[0] + '">';
+        optionsBtnMarkup1 += '<label id="dptc2_br" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
+        optionsBtnMarkup1 += '<div style="text-align: left;"><ul>';
         $.each(Messages, (index, msg) => {
-            optionsBtnMarkup += '<li class="customAllianceShareText2">' + msg + '</li>';
+            optionsBtnMarkup1 += '<li class="customAllianceShareText2">' + msg + '</li>';
         });
-        optionsBtnMarkup += '</ul></div>';
-        optionsBtnMarkup += '</div>';
+        optionsBtnMarkup1 += '</ul></div>';
+        optionsBtnMarkup1 += '</div>';
 
-        $('.alert_notify_alliance').parent().append(btnMarkup1);
+        let optionsBtnMarkup2 = '<a href="#" id="openAllianceShareOptions2_bl" class="btn btn-sm btn-default" title="Einstellungen" style="margin: 0">';
+        optionsBtnMarkup2 += '<span class="glyphicon glyphicon-option-horizontal"></span></a>';
+        optionsBtnMarkup2 += '<div class="btn btn-sm btn-default" style="margin:0; padding: 1px; display: none;" id="allianceShareOptions2_bl"><input type="text" id="allianceShareText2" value="' + Messages[0] + '">';
+        optionsBtnMarkup2 += '<label id="dptc2_bl" style="margin-left: 2px; margin-right: 2px;"><input type="checkbox" ' + (defaultPostToChat ? 'checked' : '') + ' id="postToChat" name="postToChat" value="true">An VB Chat?</label>';
+        optionsBtnMarkup2 += '<div style="text-align: left;"><ul>';
+        $.each(Messages, (index, msg) => {
+            optionsBtnMarkup2 += '<li class="customAllianceShareText2">' + msg + '</li>';
+        });
+        optionsBtnMarkup2 += '</ul></div>';
+        optionsBtnMarkup2 += '</div>';
 
-        $('.alert_notify_alliance2').first().parent().prepend(optionsBtnMarkup);
-        $('#dptc2').css('display', 'none');
+        $('.alert_notify_alliance').parent().append(btnMarkup);
 
-        $('#openAllianceShareOptions2').click(() => {
-            $('#allianceShareOptions2').show();
-            $('#openAllianceShareOptions2').hide();
+        $('.alert_notify_alliance2').first().parent().prepend(optionsBtnMarkup1);
+        $('.alert_notify_alliance2').last().parent().prepend(optionsBtnMarkup2);
+        $('#dptc2_bl').css('display', 'none');
+        $('#dptc2_br').css('display', 'none');
+
+        $('#openAllianceShareOptions2_br').click(() => {
+            $('#allianceShareOptions2_br').show();
+            $('#openAllianceShareOptions2_bl').hide();
+        });
+
+        $('#openAllianceShareOptions2_bl').click(() => {
+            $('#allianceShareOptions2_bl').show();
+            $('#openAllianceShareOptions2_br').hide();
         });
 
         $('.customAllianceShareText2').click(function() {
@@ -174,7 +191,7 @@
                             // If the extra button has the (value) number 1-9,
                             // and the message array as a corresponding number of messages, select it
                             if(extraKey > 0 && extraKey <=10 && extraKey <= Messages.length){
-                                $('#allianceShareText').val(Messages[extraKey - 1]);
+                                $('#allianceShareText2').val(Messages[extraKey - 1]);
                             }
                         }
 
@@ -192,10 +209,12 @@
 
     const processAllianceShare2 = () => {
         $('.alert_notify_alliance').hide();
-        $('#openAllianceShareOptions').hide();
+        $('#openAllianceShareOptions_bl').hide();
+        $('#openAllianceShareOptions_br').hide();
 
         $('#allianceShareOptions2').hide();
-        $('#openAllianceShareOptions2').show();
+        $('#openAllianceShareOptions2_bl').show();
+        $('#openAllianceShareOptions2_br').show();
 
         const sendToAlliance = $('#postToChat').is(':checked') ? 1 : 0;
         const missionShareLink = $('#mission_alliance_share_btn').attr('href');
@@ -221,7 +240,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.2.2.1)';
+            const vers = '(4.3.0)';
 
             var creds, cstr;
 
@@ -332,7 +351,7 @@
 
     check_localStorage_messages();
 	check_new_messages();
-	NotHappyDay();
+	notHappyDay();
     transformMessages();
     initButtons();
     initKeys();
