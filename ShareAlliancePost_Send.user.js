@@ -339,7 +339,6 @@
             let addressAndPatrientRow = $('.mission_header_info >> small').first().text().trim().split(',');
             addressAndPatrientRow = addressAndPatrientRow[addressAndPatrientRow.length-1].split('|');
             const adr = addressAndPatrientRow[0];
-            console.log(adr);
             let address = adr.slice(0, 6);
             const patientsLeft = addressAndPatrientRow.length === 2 ? addressAndPatrientRow[1] : 0;
 
