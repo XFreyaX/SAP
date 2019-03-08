@@ -309,7 +309,7 @@
     const transformMessages = () => {
         try {
 
-            const vers = '(4.3.1)';
+            const vers = '(4.3.2)';
 
             var creds, cstr;
 
