@@ -183,7 +183,7 @@
         });
 
         $('.customAllianceShareText2_br').click(function() {
-            $('#allianceShareText2_bl').val($(this).text());
+            $('#allianceShareText2_br').val($(this).text());
         });
         $('.customAllianceShareText2_bl').click(function() {
             $('#allianceShareText2_bl').val($(this).text());
