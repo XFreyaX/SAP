@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      4.3.1
+// @version      4.3.2
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // @grant        GM_setValue
