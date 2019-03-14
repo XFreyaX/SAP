@@ -88,7 +88,7 @@
     const shortcutKeys = [17, 89]; // 17 = ctrl, 68 = d
     const defaultPostToChat = false; // Set to 'false', to disable default post in alliance chat.
     const displayYear = false;
-    const useMessageStorage = true;
+    const useMessageStorage = false;
     var Messages = [];
     const defaultMessages = ['%ESZ% - %ADDRESS% - %CRE% - alles gemäß Regeln !!!',
                       '[EVENT] %ESZ% - Hat offen zu bleiben bis %MY_CUSTOM_TIME2% !!!',
