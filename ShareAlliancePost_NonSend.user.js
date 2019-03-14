@@ -61,7 +61,7 @@
     const enableKeyboard = false; // Set to 'false', to disable keyboard shortcuts.
     const shortcutKeys = [17, 68]; // 17 = ctrl, 68 = d
     const defaultPostToChat = false; // Set to 'false', to disable default post in alliance chat.
-    const useMessageStorage = true;
+    const useMessageStorage = false;
     var Messages = [];
     const defaultMessages = ['%ESZ% - %ADDRESS% - %CRE% - alles gemäß Regeln !!!',
                       '[EVENT] %ESZ% - Hat offen zu bleiben bis %MY_CUSTOM_TIME2% !!!',
