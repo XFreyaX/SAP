@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ShareAlliancePost_Send
 // @namespace    Leitstellenspiel
-// @version      5.0_459
+// @version      5.0.459
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
 // @updateURL    https://github.com/XFreyaX/SAP/raw/master/SAP_5_459.user.js
