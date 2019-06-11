@@ -4,8 +4,8 @@
 // @version      5.0_459
 // @author       x_Freya_x, jalibu (Original), JuMaHo (Original)
 // @include      https://www.leitstellenspiel.de/missions/*
-// @updateURL
-// @downloadURL  
+// @updateURL    https://github.com/XFreyaX/SAP/raw/master/SAP_5_459.user.js
+// @downloadURL  https://github.com/XFreyaX/SAP/raw/master/SAP_5_459.user.js
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_deleteValue
